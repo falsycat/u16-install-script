@@ -3,6 +3,16 @@
 VSCODE_URL="https://go.microsoft.com/fwlink/?LinkID=760868"
 MAX_STEP=4
 
+VSCODE_CONFIG=$(cat << EOS
+{
+  "disable-color-correct-rendering": true,
+  "enable-crash-reporter": true,
+  "crash-reporter-id": "4cdf0df8-84df-439e-9bee-d18a8ce22d53",
+  "locale": "ja"
+}
+EOS
+)
+
 step=0
 
 step=$((step+1))
@@ -21,8 +31,12 @@ rm vscode.deb
 
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: SETUP VSCODE
+mkdir -p ~/.vscode
+echo -e "$VSCODE_CONFIG" > ~/.vscode/argv.json
+
 code  \
-  --locale ja  \
   --force  \
   --install-extension ms-python.python  \
   --install-extension MS-CEINTL.vscode-language-pack-ja
+code  \
+  --locale ja
