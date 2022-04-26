@@ -21,6 +21,7 @@ rm vscode.deb
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: SETUP VSCODE
 code  \
+  --locale ja  \
   --force  \
   --install-extension ms-python.python  \
   --install-extension MS-CEINTL.vscode-language-pack-ja
