@@ -32,11 +32,13 @@ rm vscode.deb
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: SETUP VSCODE
 mkdir -p ~/.vscode
-echo -e "$VSCODE_CONFIG" > ~/.vscode/argv.json
 
 code  \
   --force  \
   --install-extension ms-python.python  \
   --install-extension MS-CEINTL.vscode-language-pack-ja
-code  \
-  --locale ja
+
+echo -e "$VSCODE_CONFIG" > ~/.vscode/argv.json
+echo starting vscode...
+sleep 1s
+code
