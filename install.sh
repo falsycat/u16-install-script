@@ -26,7 +26,7 @@ curl -L -o vscode.deb "$VSCODE_URL"
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: INSTALL VSCODE
 sudo dpkg -i vscode.deb
-sudo apt -f install
+sudo apt -f -y install
 rm vscode.deb
 
 step=$((step+1))
