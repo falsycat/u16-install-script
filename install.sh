@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VSCODE_URL="https://go.microsoft.com/fwlink/?LinkID=760868"
-MAX_STEP=4
+MAX_STEP=5
 
 VSCODE_CONFIG=$(cat << EOS
 {
@@ -12,12 +12,26 @@ VSCODE_CONFIG=$(cat << EOS
 }
 EOS
 )
+FCITX_CONFIG=$(cat << EOS
+[Profile]
+IMName=mozc
+EnabledIMList=mozc:True
+EOS
+)
 
 step=0
 
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: INSTALL PYTHON3
 sudo apt install python3
+
+step=$((step+1))
+echo ==== STEP $step/$MAX_STEP: INSTALL IME
+sudo apt -y install fcitx-mozc
+mkdir -p ~/.config/fcitx
+echo "$FCITX_CONFIG" > ~/.config/fcitx/profile
+echo "fcitx-autostart &" >> ~/.sommelierrc
+fcitx-autostart &
 
 step=$((step+1))
 echo ==== STEP $step/$MAX_STEP: DOWNLOAD VSCODE
@@ -38,7 +52,8 @@ code  \
   --install-extension ms-python.python  \
   --install-extension MS-CEINTL.vscode-language-pack-ja
 
-echo -e "$VSCODE_CONFIG" > ~/.vscode/argv.json
 echo starting vscode...
+sleep 1s
+echo -e "$VSCODE_CONFIG" > ~/.vscode/argv.json
 sleep 1s
 code
